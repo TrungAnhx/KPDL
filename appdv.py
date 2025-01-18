@@ -36,16 +36,14 @@ class Ui_MainWindow(object):
         self.background.setText("")
         self.background.setObjectName("background")
 
-        # ComboBox for selecting algorithm
+        # ComboBox for selecting algorithm (no border around)
         self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
         self.comboBox.setGeometry(QtCore.QRect(330, 260, 111, 31))
         font = QtGui.QFont()
         font.setFamily("Roboto")
         font.setPointSize(11)
         self.comboBox.setFont(font)
-        self.comboBox.setStyleSheet("    border: 2px solid black;\n"
-                                    "    border-radius: 20px;\n"
-                                    "    background-color: rgb(252, 251, 231);")
+        self.comboBox.setStyleSheet("background-color: rgb(252, 251, 231);")
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
@@ -64,7 +62,7 @@ class Ui_MainWindow(object):
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
 
-        # Button to browse source image
+        # Button to browse source folder
         self.pushButton_2 = QtWidgets.QPushButton(parent=self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(470, 180, 31, 31))
         font = QtGui.QFont()
@@ -84,7 +82,7 @@ class Ui_MainWindow(object):
                                         "}")
         self.pushButton_2.setObjectName("pushButton_2")
 
-        # QLabel to display the source image path
+        # QLabel to display the source folder path
         self.label_source = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_source.setGeometry(QtCore.QRect(220, 180, 251, 31))
         font = QtGui.QFont()
@@ -97,7 +95,7 @@ class Ui_MainWindow(object):
         self.label_source.setAlignment(QtCore.Qt.AlignmentFlag.AlignLeft | QtCore.Qt.AlignmentFlag.AlignVCenter)
         self.label_source.setObjectName("label_source")
 
-        # Label for "Source Image"
+        # Label for "Source Folder"
         self.label_3 = QtWidgets.QLabel(parent=self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(150, 180, 71, 31))
         font = QtGui.QFont()
@@ -170,7 +168,7 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
         # Connect buttons to functions
-        self.pushButton_2.clicked.connect(self.select_source_image)
+        self.pushButton_2.clicked.connect(self.select_source_folder)
         self.pushButton_4.clicked.connect(self.select_target_image)
 
     def retranslateUi(self, MainWindow):
@@ -186,11 +184,11 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Nguồn ảnh"))
         self.label_4.setText(_translate("MainWindow", "Ảnh"))
 
-    def select_source_image(self):
-        file_dialog = QtWidgets.QFileDialog()
-        file_path, _ = file_dialog.getOpenFileName(None, "Chọn ảnh nguồn", "", "Images (*.png *.xpm *.jpg *.bmp *.jpeg)")
-        if file_path:
-            self.label_source.setText(file_path)
+    def select_source_folder(self):
+        folder_dialog = QtWidgets.QFileDialog()
+        folder_path = folder_dialog.getExistingDirectory(None, "Chọn thư mục nguồn")
+        if folder_path:
+            self.label_source.setText(folder_path)
 
     def select_target_image(self):
         file_dialog = QtWidgets.QFileDialog()
