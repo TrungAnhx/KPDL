@@ -32,7 +32,7 @@ class Ui_MainWindow(object):
         # Background
         self.background = QtWidgets.QLabel(parent=self.centralwidget)
         self.background.setGeometry(QtCore.QRect(0, 0, 640, 480))
-        self.background.setStyleSheet("border-image: url(KPDL/dd.png);")
+        self.background.setStyleSheet("border-image: url(C:/Users/TrungAnhx/Documents/Python stuff/KPDL/dd.png);")
         self.background.setText("")
         self.background.setObjectName("background")
 
