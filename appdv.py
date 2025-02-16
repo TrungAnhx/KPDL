@@ -1,4 +1,5 @@
 import os
+import sys
 import numpy as np
 import cv2
 from PyQt6 import QtCore, QtGui, QtWidgets
@@ -158,15 +159,29 @@ class Worker(QThread):
         prediction = predict_image(self.target_image, model)
         self.finished.emit(f"Độ chính xác: {acc} | {prediction}")
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(640, 482)
         
         # Set window icon
-        icon = QtGui.QIcon("frogicon.ico")
-        MainWindow.setWindowIcon(icon)
-        
+        icon_path = resource_path("frogicon.ico")
+        if os.path.exists(icon_path):
+            icon = QtGui.QIcon(icon_path)
+            MainWindow.setWindowIcon(icon)
+        else:
+            print(f"Icon file not found: {icon_path}")
+
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
@@ -191,11 +206,17 @@ class Ui_MainWindow(object):
         self.pushButton.setObjectName("pushButton")
 
         # Background
-        self.background = QtWidgets.QLabel(parent=self.centralwidget)
-        self.background.setGeometry(QtCore.QRect(0, 0, 640, 480))
-        self.background.setStyleSheet("border-image: url(C:/Users/TrungAnhx/Documents/Python stuff/KPDL/dd.png);")
-        self.background.setText("")
-        self.background.setObjectName("background")
+        background_path = resource_path("dd.png")
+        print(f"Background path: {background_path}")  # In ra đường dẫn ảnh background
+        if os.path.exists(background_path):
+            self.background = QtWidgets.QLabel(parent=self.centralwidget)
+            self.background.setGeometry(QtCore.QRect(0, 0, 640, 480))
+            pixmap = QtGui.QPixmap(background_path)
+            self.background.setPixmap(pixmap)
+            self.background.setScaledContents(True)
+            self.background.setObjectName("background")
+        else:
+            print(f"Background image not found: {background_path}")
 
         # ComboBox for selecting algorithm
         self.comboBox = QtWidgets.QComboBox(parent=self.centralwidget)
