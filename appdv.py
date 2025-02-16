@@ -164,7 +164,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(640, 482)
         
         # Set window icon
-        icon = QtGui.QIcon("frogicon.png")
+        icon = QtGui.QIcon("frogicon.ico")
         MainWindow.setWindowIcon(icon)
         
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
