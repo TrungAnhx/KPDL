@@ -162,6 +162,11 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(640, 482)
+        
+        # Set window icon
+        icon = QtGui.QIcon("frogicon.png")
+        MainWindow.setWindowIcon(icon)
+        
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
 
