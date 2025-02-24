@@ -1,3 +1,3 @@
 # KPDL
-chua bit duoc
+chua bit duoc/n
 Hoenle was here
